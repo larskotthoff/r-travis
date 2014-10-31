@@ -58,7 +58,7 @@ BootstrapLinux() {
     # Install an R development environment. qpdf is also needed for
     # --as-cran checks:
     #   https://stat.ethz.ch/pipermail/r-help//2012-September/335676.html
-    Retry sudo apt-get install --no-install-recommends r-base-dev r-recommended qpdf
+    Retry sudo apt-get install -y --no-install-recommends r-base-dev r-recommended qpdf
 
     # Change permissions for /usr/local/lib/R/site-library
     # This should really be via 'staff adduser travis staff'
@@ -74,7 +74,7 @@ BootstrapLinuxOptions() {
         # We add a backports PPA for more recent TeX packages.
         sudo add-apt-repository -y "ppa:texlive-backports/ppa"
 
-        Retry sudo apt-get install --no-install-recommends \
+        Retry sudo apt-get install -y --no-install-recommends \
             texlive-base texlive-latex-base texlive-generic-recommended \
             texlive-fonts-recommended texlive-fonts-extra \
             texlive-extra-utils texlive-latex-recommended texlive-latex-extra \
@@ -130,7 +130,7 @@ AptGetInstall() {
     fi
 
     echo "Installing apt package(s) $@"
-    Retry sudo apt-get install "$@"
+    Retry sudo apt-get install -y "$@"
 }
 
 DpkgCurlInstall() {
@@ -146,7 +146,7 @@ DpkgCurlInstall() {
 
     echo "Installing remote package(s) $@"
     for rf in "$@"; do
-        curl -OL ${rf}
+        curl -sOL ${rf}
         f=$(basename ${rf})
         sudo dpkg -i ${f}
         rm -v ${f}
