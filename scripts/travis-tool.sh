@@ -155,7 +155,7 @@ RInstall() {
     fi
 
     echo "Installing R package(s): $@"
-    Rscript -e 'install.packages(commandArgs(TRUE), repos="'"${CRAN}"'")' "$@"
+    Rscript -e 'install.packages(commandArgs(TRUE), "/usr/lib/R/library", repos="'"${CRAN}"'")' "$@"
 }
 
 BiocInstall() {
